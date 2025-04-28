@@ -83,19 +83,19 @@ $tasks[$row['status']][] = $row;
             <?php endforeach; ?>
         </ul>
             
-            <!-- In Progress Tasks -->
-            <h3>In Progress</h3>
-            <ul>
-                <?php foreach ($tasks['In Progress'] as $task): ?>
-                    <li>
-                        <?php echo ($task["task"]); ?>
-                        <div class="actions">
-                            <a href="index.php?complete=<?php echo $task['id']; ?>">Complete</a>
-                            <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+        <!-- In Progress Tasks -->
+        <h3>In Progress</h3>
+        <ul>
+            <?php foreach ($tasks['In Progress'] as $task): ?>
+                <li>
+                    <?php echo ($task["task"]); ?>
+                    <div class="actions">
+                        <a href="index.php?complete=<?php echo $task['id']; ?>">Complete</a>
+                        <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
         
         <!-- Completed Tasks -->
         <h3>Complete</h3>
