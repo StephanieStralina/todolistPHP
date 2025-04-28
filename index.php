@@ -31,8 +31,26 @@ if (isset($_GET["complete"])) {
     exit();
 }
 
+//Switch Task to In Progress
+if (isset($_GET["progress"])) {
+    $id = $_GET["progress"];
+    $conn -> query("UPDATE tasks SET status='In Progress' WHERE id='$id'");
+    header("Location: index.php");
+    exit();
+}
+
 //Load Tasks to Display
 $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
+
+$tasks = [
+    'Not Started' => [],
+    'In Progress' => [],
+    'Complete' => []
+];
+
+while ($row = $result->fetch_assoc()) {
+$tasks[$row['status']][] = $row;
+}
 ?>
 
 
@@ -50,16 +68,46 @@ $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
             <input type="text" name="task" placeholder="Enter task here" id="">
             <button type="submit" name="add-task">Add Task</button>
         </form>
+        <!-- Not Started Tasks -->
+        <h3>Not Started</h3>
         <ul>
-            <?php while($row = $result -> fetch_assoc()): ?>
+            <?php foreach ($tasks['Not Started'] as $task): ?>
                 <li>
-                    <?php echo $row["task"]; ?>
+                    <?php echo ($task["task"]); ?>
                     <div class="actions">
-                        <a href="index.php?complete=<?php echo $row['id']; ?>">Complete</a>
-                        <a href="index.php?delete=<?php echo $row['id']; ?>">Delete</a>
+                        <a href="index.php?complete=<?php echo $task['id']; ?>">Complete</a>
+                        <a href="index.php?progress=<?php echo $task['id']; ?>">In Progress</a>
+                        <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
                     </div>
                 </li>
-            <?php endwhile ?>
+            <?php endforeach; ?>
+        </ul>
+            
+            <!-- In Progress Tasks -->
+            <h3>In Progress</h3>
+            <ul>
+                <?php foreach ($tasks['In Progress'] as $task): ?>
+                    <li>
+                        <?php echo ($task["task"]); ?>
+                        <div class="actions">
+                            <a href="index.php?complete=<?php echo $task['id']; ?>">Complete</a>
+                            <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        
+        <!-- Completed Tasks -->
+        <h3>Complete</h3>
+        <ul>
+            <?php foreach ($tasks['Complete'] as $task): ?>
+                <li>
+                    <?php echo ($task["task"]); ?>
+                    <div class="actions">
+                        <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
+                    </div>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
 </body>
