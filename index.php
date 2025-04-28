@@ -14,6 +14,10 @@ if (isset($_POST["add-task"])) {
     header("Location: index.php");
     exit();
 }
+if (isset($_GET["delete"])) {
+    $id = $_GET["delete"];
+    $conn -> query("DELETE FROM tasks WHERE id ='$id'");
+}
 $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
 ?>
 
@@ -38,7 +42,7 @@ $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
                     <?php echo $row["task"]; ?>
                     <div class="actions">
                         <a href="index.php?complete=<?php echo $row['id']; ?>">Complete</a>
-                        <a href="index.php?complete=<?php echo $row['id']; ?>">Delete</a>
+                        <a href="index.php?delete=<?php echo $row['id']; ?>">Delete</a>
                     </div>
                 </li>
             <?php endwhile ?>
