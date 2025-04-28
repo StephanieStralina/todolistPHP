@@ -64,48 +64,54 @@ $tasks[$row['status']][] = $row;
     <title>To-Do List</title>
 </head>
 <body>
-    <div class="grid grid-cols-4 grid-rows-6">
-        <h1 class="col-span-full justify-self-center content-center">To-Do List</h1>
-        <form action="index.php" method="POST" class="col-span-full justify-self-center">
+    <div class="flex flex-col items-center">
+        <h1 class=" text-4xl font-bold pt-8">To-Do List</h1>
+        <form action="index.php" method="POST" class="pt-8">
             <input type="text" name="task" placeholder="Enter task here" id="" class="border border-black-600 rounded-sm p-2">
             <button type="submit" name="add-task" class="border border-black-600 rounded-sm p-2">Add Task</button>
         </form>
         <!-- Not Started Tasks -->
-        <div class="col-span-full justify-self-center">
-        <h3>Not Started</h3>
-        <ul>
+        <div class="pt-8 flex flex-col items-start w-full pl-112">
+        <h3 class="text-xl underline">Not Started</h3>
+        <ul class="pt-2">
             <?php foreach ($tasks['Not Started'] as $task): ?>
                 <li>
-                    <?php echo ($task["task"]); ?>
-                    <div class="actions">
-                        <a href="index.php?complete=<?php echo $task['id']; ?>">Complete</a>
-                        <a href="index.php?progress=<?php echo $task['id']; ?>">In Progress</a>
-                        <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
+                    <span class="italic text-lg">
+                        <?php echo ($task["task"]); ?>
+                    </span>
+                    <div class="underline flex gap-2 text-emerald-500 justify-items-start">
+                        <a href="index.php?complete=<?php echo $task['id']; ?>" class="hover:text-blue-300">Complete</a>
+                        <a href="index.php?progress=<?php echo $task['id']; ?>" class="hover:text-blue-300">In Progress</a>
+                        <a href="index.php?delete=<?php echo $task['id']; ?>" class="hover:text-blue-300">Delete</a>
                     </div>
                 </li>
             <?php endforeach; ?>
         </ul>   
         <!-- In Progress Tasks -->
-        <h3 class="pt-1">In Progress</h3>
-        <ul>
+        <h3 class="pt-4 text-xl underline">In Progress</h3>
+        <ul class="pt-2">
             <?php foreach ($tasks['In Progress'] as $task): ?>
                 <li>
-                    <?php echo ($task["task"]); ?>
-                    <div class="actions">
-                        <a href="index.php?complete=<?php echo $task['id']; ?>">Complete</a>
-                        <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
+                    <span class="italic text-lg">
+                        <?php echo ($task["task"]); ?>
+                    </span>
+                    <div class="underline flex gap-2 text-emerald-500">
+                    <a href="index.php?complete=<?php echo $task['id']; ?>" class="hover:text-blue-300">Complete</a>
+                    <a href="index.php?delete=<?php echo $task['id']; ?>" class="hover:text-blue-300">Delete</a>
                     </div>
                 </li>
             <?php endforeach; ?>
         </ul>
         <!-- Completed Tasks -->
-        <h3 class="pt-1">Complete</h3>
-        <ul>
+        <h3 class="pt-4 text-xl underline">Complete</h3>
+        <ul class="pt-2">
             <?php foreach ($tasks['Complete'] as $task): ?>
                 <li>
+                <span class="italic text-lg">
                     <?php echo ($task["task"]); ?>
-                    <div class="actions">
-                        <a href="index.php?delete=<?php echo $task['id']; ?>">Delete</a>
+                </span>
+                    <div class="underline flex gap-2 text-emerald-500">
+                    <a href="index.php?delete=<?php echo $task['id']; ?>" class="hover:text-blue-300">Delete</a>
                     </div>
                 </li>
             <?php endforeach; ?>
