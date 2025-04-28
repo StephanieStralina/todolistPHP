@@ -71,7 +71,7 @@ $tasks[$row['status']][] = $row;
             <button type="submit" name="add-task" class="border border-black-600 rounded-sm p-2">Add Task</button>
         </form>
         <!-- Not Started Tasks -->
-        <div class="pt-8 flex flex-col items-start w-full pl-112">
+        <div class="pt-8 flex flex-col items-start w-full pl-120">
         <h3 class="text-xl underline">Not Started</h3>
         <ul class="pt-2">
             <?php foreach ($tasks['Not Started'] as $task): ?>
