@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $conn = new mysqli("localhost", "root", "", "todolist");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -8,9 +10,11 @@ if (!$conn) {
 
 if (isset($_POST["add-task"])) {
     $task = $_POST["task"];
-    echo $task;
+    $conn -> query("INSERT INTO tasks (task) VALUES ('$task')");
+    header("Location: index.php");
+    exit();
 }
-
+$result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
 ?>
 
 
@@ -25,9 +29,20 @@ if (isset($_POST["add-task"])) {
     <div class="container">
         <h1>To-Do List</h1>
         <form action="index.php" method="POST">
-            <input type="text" name="task" placeholder="Enter task here">
+            <input type="text" name="task" placeholder="Enter task here" id="">
             <button type="submit" name="add-task">Add Task</button>
         </form>
+        <ul>
+            <?php while($row = $result -> fetch_assoc()): ?>
+                <li>
+                    <?php echo $row["task"]; ?>
+                    <div class="actions">
+                        <a href="index.php?complete=<?php echo $row['id']; ?>">Complete</a>
+                        <a href="index.php?complete=<?php echo $row['id']; ?>">Delete</a>
+                    </div>
+                </li>
+            <?php endwhile ?>
+        </ul>
     </div>
 </body>
 </html>
