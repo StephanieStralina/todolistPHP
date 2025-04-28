@@ -1,23 +1,37 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 $conn = new mysqli("localhost", "root", "", "todolist");
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-} elseif ($conn->connect_error) {
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+//Add Task
 if (isset($_POST["add-task"])) {
     $task = $_POST["task"];
     $conn -> query("INSERT INTO tasks (task) VALUES ('$task')");
     header("Location: index.php");
     exit();
 }
+
+//Delete Task
 if (isset($_GET["delete"])) {
     $id = $_GET["delete"];
     $conn -> query("DELETE FROM tasks WHERE id ='$id'");
+    header("Location: index.php");
+    exit();
 }
+
+//Complete Task
+if (isset($_GET["complete"])) {
+    $id = $_GET["complete"];
+    $conn -> query("UPDATE tasks SET status='Complete' WHERE id='$id'");
+    header("Location: index.php");
+    exit();
+}
+
+//Load Tasks to Display
 $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
 ?>
 
