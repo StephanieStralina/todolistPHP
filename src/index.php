@@ -59,16 +59,19 @@ $tasks[$row['status']][] = $row;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">
     <title>To-Do List</title>
 </head>
 <body>
-    <div class="container">
-        <h1>To-Do List</h1>
-        <form action="index.php" method="POST">
-            <input type="text" name="task" placeholder="Enter task here" id="">
-            <button type="submit" name="add-task">Add Task</button>
+    <div class="grid grid-cols-4 grid-rows-6">
+        <h1 class="col-span-full justify-self-center content-center">To-Do List</h1>
+        <form action="index.php" method="POST" class="col-span-full justify-self-center">
+            <input type="text" name="task" placeholder="Enter task here" id="" class="border border-black-600 rounded-sm p-2">
+            <button type="submit" name="add-task" class="border border-black-600 rounded-sm p-2">Add Task</button>
         </form>
         <!-- Not Started Tasks -->
+        <div class="col-span-full justify-self-center">
         <h3>Not Started</h3>
         <ul>
             <?php foreach ($tasks['Not Started'] as $task): ?>
@@ -81,10 +84,9 @@ $tasks[$row['status']][] = $row;
                     </div>
                 </li>
             <?php endforeach; ?>
-        </ul>
-            
+        </ul>   
         <!-- In Progress Tasks -->
-        <h3>In Progress</h3>
+        <h3 class="pt-1">In Progress</h3>
         <ul>
             <?php foreach ($tasks['In Progress'] as $task): ?>
                 <li>
@@ -96,9 +98,8 @@ $tasks[$row['status']][] = $row;
                 </li>
             <?php endforeach; ?>
         </ul>
-        
         <!-- Completed Tasks -->
-        <h3>Complete</h3>
+        <h3 class="pt-1">Complete</h3>
         <ul>
             <?php foreach ($tasks['Complete'] as $task): ?>
                 <li>
@@ -109,6 +110,7 @@ $tasks[$row['status']][] = $row;
                 </li>
             <?php endforeach; ?>
         </ul>
+        </div>
     </div>
 </body>
 </html>
